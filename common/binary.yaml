@@ -1,6 +1,6 @@
 substitutions:
   binary_1: "13" # yellow
-  leak_sensor: "27" # blue -> red (and connect to GND)
+  capteur_fuite: "27" # blue -> red (and connect to GND)
 
 binary_sensor:
   - platform: gpio
@@ -16,13 +16,13 @@ binary_sensor:
       - delayed_on_off: 30ms
 
   - platform: gpio
-    id: leak_sensor
+    id: capteur_fuite
     pin: 
-      number: ${leak_sensor}
+      number: ${capteur_fuite}
       inverted: true
       mode:
         input: true
         pullup: true
-    name: "Leak Sensor"
+    name: "Capteur fuite"
     filters:
       - delayed_on_off: 30ms

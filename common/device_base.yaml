@@ -14,7 +14,7 @@ esphome:
   friendly_name: "${friendly_name}"
   # Automatically add the mac address to the name
   name_add_mac_suffix: true
-  comment: "Raph's Reef ESP32 - Aquarium Controller & Monitor"
+  comment: "Raph's Reef ESP32 - Moniteur d'aquarium"
   project:
     name: twinsen68.raphsreef
     version: "${app_version}"
@@ -57,7 +57,7 @@ i2c:
 # Internal Blue LED
 light:
   - platform: status_led
-    id: internal_led
+    id: led_interne
     pin:
       number: GPIO2
       ignore_strapping_warning: true
@@ -65,11 +65,11 @@ light:
 sensor:
   # Internal Temp.
   - platform: internal_temperature
-    name: "Internal Temperature"
+    name: "Température interne"
 
   # Wifi Signal 
   - platform: wifi_signal # Reports the WiFi signal strength/RSSI in dB
-    name: "WiFi Signal dB"
+    name: "WiFi - Signal dB"
     disabled_by_default: true
     id: wifi_signal_db
     update_interval: 60s
@@ -78,7 +78,7 @@ sensor:
   # Wifi %
   - platform: copy # Reports the WiFi signal strength in %
     source_id: wifi_signal_db
-    name: "WiFi Signal Strength"
+    name: "WiFi force du signal"
     filters:
       - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
     unit_of_measurement: "%"
@@ -86,11 +86,11 @@ sensor:
 
   # Uptime sensor
   - platform: uptime
-    name: Uptime 
+    name: Dernier démarage 
 
   # Internal Magnetic Sensor
   - platform: esp32_hall
-    name: "ESP32 Hall Sensor"
+    name: "ESP32 Hall"
     entity_category: "diagnostic"
 
   # of I2C devices connected
@@ -121,7 +121,7 @@ binary_sensor:
 text_sensor:
   # Hostname
   - platform: template
-    name: "Hostname"
+    name: "Nom du device"
     id: hostname
     icon: mdi:cellphone-arrow-down
     lambda: |-
@@ -134,34 +134,34 @@ text_sensor:
       name: IP Address
       icon: mdi:ip-network
     ssid:
-      name: Connected SSID
+      name: SSID
       icon: mdi:wifi-arrow-left-right
     bssid:
-      name: Connected BSSID
+      name: BSSID
       icon: mdi:wifi-star
       disabled_by_default: true
     mac_address:
-      name: Mac Address
+      name: Address Mac
       icon: mdi:chip
 
 button:
   # Soft Restart
   - platform: restart
     id: restart_button
-    name: "Restart"
+    name: "Rédemarer"
 
   # Factory Reset
   - platform: factory_reset
-    name: Factory Reset (USE WITH CAUTION)
+    name: Réintial. Usine 
     disabled_by_default: true
 
   # Safe Mode Restart
   - platform: safe_mode
-    name: "Restart in Safe Mode"
+    name: "Safe Mode"
     id: restart_safe
 
   # Shutdown
   - platform: shutdown
-    name: "Shutdown"
+    name: "Eteindre"
     disabled_by_default: true
     id: shutdown_button
