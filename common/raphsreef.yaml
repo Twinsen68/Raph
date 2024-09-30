@@ -16,5 +16,5 @@ text_sensor:
     icon: mdi:github
     update_interval: '365days'
     lambda: |-
-      return {"github.com/twinsen68/raphsreef"};
+      return {"github.com/twinsen68/raph"};
     entity_category: "diagnostic"
