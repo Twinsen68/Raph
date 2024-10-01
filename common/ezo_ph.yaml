@@ -78,7 +78,7 @@ sensor:
 text_sensor:
   # Selected Command Result - pH
   - platform: template
-    name: pH - Command Result
+    name: pH - Valeur Commande
     icon: mdi:data-matrix
     id: result_ph
     # disabled_by_default: true
@@ -86,7 +86,7 @@ text_sensor:
 button:
   # Read pH Probe
   - platform: template
-    name: pH - Read
+    name: pH - Lire
     id: read_ph
     icon: mdi:read
     entity_category: "Config"
@@ -101,19 +101,19 @@ button:
               id(ph_ezo).send_custom("R");
             }
             else {
-              ESP_LOGW("custom_ph_read", "No pH sensor detected at address: ${addPH}!!");
+              ESP_LOGW("custom_ph_read", "Pas de Capteur PH à cette adresse: ${addPH}!!");
             }
 
   # Send Selected EZO Command - pH
   - platform: template
-    name: pH - Command Send Selected
+    name: pH - Commande selectionée envoyée
     id: send_selected_ph
     entity_category: "Config"
     # disabled_by_default: true
     on_press:
       then:
         - lambda: |-
-            if (id(select_command_ph).state == "Read") {
+            if (id(select_command_ph).state == "Lire") {
               id(ph_ezo).send_custom("R");
             }
             // Get Device Firmware Version
@@ -123,22 +123,22 @@ button:
             if (id(select_command_ph).state == "Status") {
               id(ph_ezo).send_custom("Status");
             }
-            if (id(select_command_ph).state == "Get Slope") {
+            if (id(select_command_ph).state == "Obtenir ° Précision") {
               id(ph_ezo).get_slope();
             }
-            if (id(select_command_ph).state == "Check Calibration") {
+            if (id(select_command_ph).state == "Vérifier calibration") {
               id(ph_ezo).get_calibration();
             }  
-            if (id(select_command_ph).state == "Calibrate @ MID = 7 (WILL RESET CALIBRATION)") {
+            if (id(select_command_ph).state == "Calibration @ moyenne = 7") {
               id(ph_ezo).set_calibration_point_mid(7.00);
             }
-            if (id(select_command_ph).state == "Calibrate @ LOW = 4 (WILL RESET CALIBRATION)") {
+            if (id(select_command_ph).state == "Calibration @ basse = 4") {
               id(ph_ezo).set_calibration_point_low(4.00);
             }
-            if (id(select_command_ph).state == "Calibrate @ HIGH = 10 (WILL RESET CALIBRATION)") {
+            if (id(select_command_ph).state == "Calibration @ haute = 10") {
               id(ph_ezo).set_calibration_point_high(10.00);
             }
-            if (id(select_command_ph).state == "Calibrate CLEAR (WILL RESET CALIBRATION)") {
+            if (id(select_command_ph).state == "Effacer calibration") {
               id(ph_ezo).clear_calibration();
             }
             // else {
@@ -154,16 +154,16 @@ select:
     # disabled_by_default: true
     entity_category: "Config"
     options:
-      - "Read"
+      - "Lire"
       - "Information"
       - "Status"
-      - "Get Slope"
-      - "Check Calibration"
-      - "Calibrate @ MID = 7 (WILL RESET CALIBRATION)"
-      - "Calibrate @ LOW = 4 (WILL RESET CALIBRATION)"
-      - "Calibrate @ HIGH = 10 (WILL RESET CALIBRATION)"
-      - "Calibrate CLEAR (WILL RESET CALIBRATION)"
-    initial_option: "Check Calibration"
+      - "Obtenir ° Précision"
+      - "Vérifier calibration"
+      - "Calibration @ moyenne = 7"
+      - "Calibration @ basse = 4"
+      - "Calibration @ haute = 10"
+      - "Effacer calibration"
+    initial_option: "Vérifier calibration"
     set_action:
       - logger.log:
           format: "Chosen option: %s"
