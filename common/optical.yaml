@@ -23,7 +23,7 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-    name: "Optical Sensor: Low"
+    name: "Capteur niveau : Bas"
     filters:
       - delayed_on_off: 30ms
     on_state:
@@ -40,7 +40,7 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-    name: "Optical Sensor: High"
+    name: "Capteur niveau : Haut"
     filters:
       - delayed_on_off: 30ms
     on_state:
@@ -51,21 +51,21 @@ text_sensor:
   # Water Level
   - platform: template
     icon: mdi:waves-arrow-up
-    name: "Water Level"
+    name: "Niveau d'eau"
     id: water_level
     update_interval: "${update_water}"
     lambda: |-
       if(id(os_high).state == true && id(os_low).state == true) {
         // Water Level is High
-        return {"High"};
+        return {"Trop haut"};
       }
       if(id(os_high).state == false && id(os_low).state == false) {
         // Water Level is Low
-        return {"Low"};
+        return {"Trop bas"};
       }
       if(id(os_high).state == false && id(os_low).state == true) {
         // Water Level is Normal
-        return {"Normal"};
+        return {"Optimal"};
       } else {
-        return {"Uknown or Error"};
+        return {"Inconnu ou erreur"};
       }

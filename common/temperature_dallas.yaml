@@ -20,7 +20,7 @@ sensor:
   - platform: dallas_temp
     id: temp_1
     icon: mdi:thermometer-water
-    name: "Temperature"
+    name: "Température"
     state_class: "measurement"
     device_class: "temperature"
     update_interval: "${update_temp}"
@@ -34,17 +34,9 @@ sensor:
       then:
         - component.update: temp_range
 
-  # Convert to Fahrenheit - Temp. 1
-  - platform: template
-    state_class: "measurement"
-    device_class: "temperature"
-    id: temp_f
-    lambda: |-
-      return id(temp_1).state * 9 / 5 + 32;
-
   # Calibration Temp. at 0C
   - platform: template
-    name: Calibration at 0°C - Temp. 1
+    name: Calibration à 0°C - Temp. 1
     id: cal_0_sen
     icon: mdi:thermometer-low
     unit_of_measurement: "°C"
@@ -57,7 +49,7 @@ sensor:
 
   # Calibration Temp. at 100C
   - platform: template
-    name: Calibration at 100°C - Temp. 1
+    name: Calibration à 100°C - Temp. 1
     id: cal_100_sen
     icon: mdi:thermometer-high
     unit_of_measurement: "°C"
@@ -70,7 +62,7 @@ sensor:
 
 binary_sensor:
   - platform: template
-    name: Ideal Temperature
+    name: Temperature idéal
     id: ideal_temp
     icon: mdi:thermometer-check
     lambda: |-
@@ -83,28 +75,28 @@ binary_sensor:
 text_sensor:
   # Temperature Range 1
   - platform: template
-    name: Temperature Range
+    name: Gamme Température
     id: temp_range
     icon: mdi:thermometer-alert
     update_interval: "${update_temp}"
     lambda: |-
-      if(id(temp_f).state <= id(range_cool).state) {
-        return {"Cool"};
+      if(id(temp_1).state <= id(range_cool).state) {
+        return {"Froid"};
       }
-      if(id(temp_f).state < id(range_warm).state && id(temp_f).state > id(range_cool).state) {
-        return {"OK"};
+      if(id(temp_1).state < id(range_warm).state && id(temp_1).state > id(range_cool).state) {
+        return {"Optimal"};
       }
-      if(id(temp_f).state >= id(range_warm).state) {
-        return {"Warm"};
+      if(id(temp_1).state >= id(range_warm).state) {
+        return {"Chaud"};
       }     
       else {
-        return {"Unknown"};
+        return {"Inconnu"};
       }  
 
 number:
   # Temperature 1 when Cool
   - platform: template
-    name: "Temp. Cool"
+    name: "Temp. lim. froide"
     id: range_cool
     icon: mdi:thermometer-low
     optimistic: true
@@ -122,7 +114,7 @@ number:
 
   # Temperature 1 when Warm
   - platform: template
-    name: "Temp. Warm"
+    name: "Temp. lim. chaude"
     icon: mdi:thermometer-high
     id: range_warm
     optimistic: true
