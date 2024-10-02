@@ -347,7 +347,7 @@ select:
       - "Calibration @ basse = 12880"
       - "Calibration @ haute = 80000"
       - "Effacer calibration"
-    initial_option: "Ctrl Cal"
+    initial_option: "Ctrl Calibration"
     set_action:
       - logger.log:
           format: "Chosen option: %s"
