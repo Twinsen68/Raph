@@ -10,7 +10,7 @@ esphome:
   
 api:
   encryption:
-    key: CD5EWuuutQrsTUxT9XdWc5ubCPOewZLSl00wXb+VzVU=
+    key: EtryKOqGLljX2SSM1CWrA0ys2bLGXc4CrjViG0Hm8GA=
 
 wifi:
   ssid: !secret wifi_ssid
