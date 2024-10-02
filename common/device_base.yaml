@@ -25,7 +25,7 @@ esp32:
     type: arduino
 
 dashboard_import:
-  package_import_url: github://Twinsen68/raph/raphsreef_config.yaml@main
+  package_import_url: github://Twinsen68/Raph/raphsreef_config.yaml@main
   import_full_config: ${import_config}
 
 # Enable logging
