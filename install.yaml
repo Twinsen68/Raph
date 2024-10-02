@@ -2,7 +2,7 @@ substitutions:
   name: raphsreef
   friendly_name: raphsreef
 packages:
-  twinsen68.raphsreef: github://twinsen68/Raph/raphsreef_config.yaml@main
+  twinsen68.raphsreef: github://twinsen68/raph/raphsreef_config.yaml@main
 esphome:
   name: ${name}
   name_add_mac_suffix: false # or true
@@ -10,7 +10,7 @@ esphome:
   
 api:
   encryption:
-    key: EtryKOqGLljX2SSM1CWrA0ys2bLGXc4CrjViG0Hm8GA=
+    key: Y+CW+hILdfh2CwPEafOL59BYD0Y6o2quSiyG2ZKs8Aw=
 
 wifi:
   ssid: !secret wifi_ssid
